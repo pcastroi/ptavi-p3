@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import json
 import smallsmilhandler
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
@@ -27,5 +28,7 @@ if __name__ == '__main__':
                 atrib = atrib
             else:
                 atrib = atrib + atribs + '=' + taglist[i][atribs] + '\t'
-        print(taglist[i]['tag'] + '\t' + atrib + '\n')
+        labels = taglist[i]['tag'] + '\t' + atrib + '\n'
+        print(labels)
         i = i + 1
+    json.dump(taglist, open('karaoke.json', 'w'))
