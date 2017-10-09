@@ -18,8 +18,14 @@ if __name__ == '__main__':
     try:
         parser.parse(open(sys.argv[1]))
     except IndexError:
-        sys.exit("Usage: python3 karaoke.py file.smil.")
-        
-    for diccionario in taglist:
-        print(taglist[diccionario])
-    #print(taglist)
+        sys.exit("Usage: python3 karaoke.py file.smil")
+          
+    for dic in taglist:
+        atrib = ""
+        for atribs in taglist[i]:
+            if taglist[i][atribs] == taglist[i]['tag']:
+                atrib = atrib
+            else:
+                atrib = atrib + atribs + '=' + taglist[i][atribs] + '\t'
+        print(taglist[i]['tag'] + '\t' + atrib + '\n')
+        i = i + 1
