@@ -3,6 +3,7 @@
 
 import sys
 import json
+import urllib.request
 import smallsmilhandler
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
@@ -11,7 +12,6 @@ if __name__ == '__main__':
     """
     Programa principal
     """
-    i = 0
     ssHandler = smallsmilhandler.SmallSMILHandler()
     taglist = ssHandler.get_tags()
     parser = make_parser()
@@ -22,13 +22,17 @@ if __name__ == '__main__':
         sys.exit("Usage: python3 karaoke.py file.smil")
           
     for dic in taglist:
-        atrib = ""
-        for atribs in taglist[i]:
-            if taglist[i][atribs] == taglist[i]['tag']:
-                atrib = atrib
+#        atrib = ""
+        for atribs in dic:
+            print(dic['tag'] + '\t', end='')
+            if atribs == 'tag':
+                pass
             else:
-                atrib = atrib + atribs + '=' + taglist[i][atribs] + '\t'
-        labels = taglist[i]['tag'] + '\t' + atrib + '\n'
-        print(labels)
-        i = i + 1
+                print(atribs + '=' + dic[atribs] + '\t',)
+                #if atribs == 'src':
+                    #taglist[i][atribs][:taglist[i][atribs].rfind('/')] = urllib.request.urlretrieve(taglist[i][atribs])
+                    
+
+
     json.dump(taglist, open('karaoke.json', 'w'))
+    
