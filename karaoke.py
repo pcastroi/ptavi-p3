@@ -22,15 +22,17 @@ if __name__ == '__main__':
         sys.exit("Usage: python3 karaoke.py file.smil")
           
     for dic in taglist:
-#        atrib = ""
+        print(dic['tag'] + '\t', end='')
         for atribs in dic:
-            print(dic['tag'] + '\t', end='')
             if atribs == 'tag':
                 pass
             else:
-                print(atribs + '=' + dic[atribs] + '\t',)
-                #if atribs == 'src':
-                    #taglist[i][atribs][:taglist[i][atribs].rfind('/')] = urllib.request.urlretrieve(taglist[i][atribs])
+                print(atribs + '=' + dic[atribs] + '\t', end='')
+                if atribs == 'src':
+                    #dic[atribs][dic[atribs].rfind('/') + 1:] =
+                    urllib.request.urlretrieve(dic[atribs])
+        print('\n')
+
                     
 
 
