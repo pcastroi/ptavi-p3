@@ -29,8 +29,10 @@ if __name__ == '__main__':
             else:
                 print(atribs + '=' + dic[atribs] + '\t', end='')
                 if atribs == 'src':
-                    #dic[atribs][dic[atribs].rfind('/') + 1:] =
-                    urllib.request.urlretrieve(dic[atribs])
+                    try:
+                        urllib.request.urlretrieve(dic[atribs], dic[atribs][dic[atribs].rfind('/') + 1:])
+                    except ValueError:
+                        pass
         print('\n')
 
                     
