@@ -11,6 +11,9 @@ from xml.sax.handler import ContentHandler
 class KaraokeLocal:
 
     def __init__ (self, fsmil):
+    """
+    Inicializa y construye la lista
+    """
         ssHandler = smallsmilhandler.SmallSMILHandler()
         parser = make_parser()
         parser.setContentHandler(ssHandler)
@@ -18,17 +21,15 @@ class KaraokeLocal:
         self.taglist = ssHandler.get_tags()
                 
     def __str__ (self):
+    """
+    Devuelve una cadena de texto con todas las etiquetas y atributos
+    """
         listcad = []
         for dic in self.taglist:
             listcad.append(dic['tag']) 
             for atribs in dic:
-                if atribs == 'tag':
-                  pass
-                else:
-                    if dic[atribs] == '':
-                        pass
-                    else:
-                        listcad.append('\t' + atribs + '=' + dic[atribs] + '\t')
+                if atribs != 'tag' and dic[atribs]:
+                    listcad.append('\t' + atribs + '=' + dic[atribs] + '\t')
             listcad.append('\n')
         return(''.join(listcad))
             
@@ -44,11 +45,11 @@ class KaraokeLocal:
                     urllib.request.urlretrieve(dic[atribs], dic[atribs][dic[atribs].rfind('/') + 1:])
                     dic[atribs] = dic[atribs][dic[atribs].rfind('/') + 1:]
 
-if __name__ == '__main__':
-    
-    if len(sys.argv) != 2:
-            sys.exit("Usage: python3 karaoke.py file.smil")
-    karloc = KaraokeLocal(sys.argv[1])
+if __name__ == '__main__':         
+    try:
+        karloc = KaraokeLocal(sys.argv[1])
+    except (FileNotFoundError, IndexError):
+        sys.exit("Usage: python3 karaoke.py file.smil")
     print(karloc.__str__())
     karloc.to_json(sys.argv[1])
     karloc.do_local()
